@@ -1,51 +1,34 @@
 // Select color input
 // Select size input
+var height, width, color;
 
 // When size is submitted by the user, call makeGrid()
+$('#sizePicker').submit(function (event) {
+   event.preventDefault();
+   height = $('#inputHeight').val();
+   width = $('#inputWeight').val();
+   makeGrid(height, width);
 
-$(function() {
-  
-  var theGrid = $("#pixel_canvas");
-  var currentColor = "#000";
-
-  
-  $("#sizePicker").submit(function(e) {
-    e.preventDefault();
-    makeGrid();
-  });
-
- 
-  $("#colorPicker").change(function() {
-    currentColor = $(this).val();
-  });
-
-  
-  theGrid.on("mousemove", "td", function(e) {
-    if (e.buttons == 1) {
-      $(this).css("background-color", currentColor); 
-
-  theGrid.on("click", "td", function(e) {
-    $(this).css("background-color", currentColor); 
-  });
+})
 
 
-  function makeGrid() {
-   
-    var gridHeight = $("#input_height").val();
-    var gridWidth = $("#input_width").val();
-    theGrid.empty(); 
-   
-    for (x = 0; x <= gridHeight - 1; x++) {
-      theGrid.append("<tr>"); 
-     
-      for (y = 0; y <= gridWidth - 1; y++) {
-        $("tr:eq(" + x + ")").append("<td></td>");
+function makeGrid(x, y) {
+    $('tr').remove();
+    // Your code goes here!
+    for (var i = 1; i <= x; i++){
+      $('#pixelCanvas').append('<tr id=table' + i + '></tr>');
+      for (var j = 1; j <=y; j++){
+        $('#table' + i).append('<td></td>');
       }
-      theGrid.append("</tr>"); 
-    }
   }
-});
+ // color element
+  $('td').click(function addColor(){
+    color = $('#colorPicker').val();
 
-// Your code goes here!
-
+    if ($(this).attr('style')) {
+      $(this).removeAttr('stye')
+    } else {
+       $(this).attr('style', 'background-color:' + color);
+    }
+  })
 }
